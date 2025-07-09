@@ -2,37 +2,74 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Build and Run C++",
+      "label": "Build C++",
       "type": "shell",
       "command": "g++",
       "args": [
         "-std=c++17",
         "-O2",
         "-Wall",
+        "-Wextra",
+        "-Wshadow",
         "${file}",
         "-o",
-        "${fileDirname}/temp.exe"
+        "${fileDirname}/${fileBasenameNoExtension}.exe"
       ],
+      "problemMatcher": ["$gcc"],
       "group": {
         "kind": "build",
         "isDefault": true
       },
-      "problemMatcher": ["$gcc"],
-      "detail": "Compile C++"
+      "detail": "Compile C++ file to executable"
     },
     {
-      "label": "Run and Delete Executable",
+      "label": "Run C++",
+      "type": "shell",
+      "command": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "dependsOn": "Build C++",
+      "problemMatcher": []
+    },
+    {
+      "label": "Run with Input",
       "type": "shell",
       "command": "cmd",
       "args": [
         "/c",
-        "${fileDirname}\\${fileBasenameNoExtension}.exe && del ${fileDirname}\\${fileBasenameNoExtension}.exe"
+        "${fileDirname}\\${fileBasenameNoExtension}.exe < input.txt > output.txt"
       ],
+      "group": "none",
       "dependsOn": "Build C++",
-      "group": {
-        "kind": "test",
-        "isDefault": true
-      }
+      "problemMatcher": [],
+      "detail": "Run C++ with input.txt and save to output.txt"
+    },
+    {
+      "label": "Delete Executable",
+      "type": "shell",
+      "command": "del",
+      "args": ["${fileDirname}\\${fileBasenameNoExtension}.exe"],
+      "problemMatcher": [],
+      "detail": "Delete compiled executable"
+    },
+    {
+      "label": "Run with Input and Delete",
+      "type": "shell",
+      "command": "echo Running and deleting executable...",
+      "dependsOn": ["Run with Input", "Delete Executable"],
+      "dependsOrder": "sequence",
+      "problemMatcher": [],
+      "detail": "Run C++ with input and delete executable"
+    },
+    {
+      "label": "Clean Executable",
+      "type": "shell",
+      "command": "del",
+      "args": ["${fileDirname}\\${fileBasenameNoExtension}.exe"],
+      "problemMatcher": [],
+      "detail": "Delete compiled executable"
     }
   ]
 }
