@@ -1,0 +1,9 @@
+I am working on this problem: [problem name] I think you know this problem, if yes please let me know, I like to discuss with you and do pair programming with you and will tell you the solution correct it for me, please don't post any solutions or share any code, until I say, just pair programming.
+
+Language: c++
+
+I hope my understanding and program observation is correct
+
+Okay i'll start with the coding steps, correct me if i am wrong
+
+
